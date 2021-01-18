@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { addContact } from '../../redux/contacts/contacts-actions';
 import styles from './Form.module.css';
 
-export default function Form({ onSubmit }) {
+function Form({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -27,6 +29,15 @@ export default function Form({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(name, number);
+    // if (name.trim() === '' || number.trim() === '') {
+    //   alert(`All fields must be completed.`);
+    // } else if (contacts.find(contact => contact.name === name)) {
+    //   alert(`${name} is already in contacts.`);
+    // } else if (contacts.find(contact => contact.number === number)) {
+    //   alert(`${number} is already in contacts.`);
+    // } else {
+    //   setContacts(prevContacts => [contact, ...prevContacts]);
+    // }
     reset();
   };
 
@@ -69,3 +80,13 @@ export default function Form({ onSubmit }) {
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (name, number) => dispatch(addContact(name, number)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
