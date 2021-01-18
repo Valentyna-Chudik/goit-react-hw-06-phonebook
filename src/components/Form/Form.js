@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-actions';
 import styles from './Form.module.css';
 
-function Form({ onSubmit }) {
+function Form({ contacts, onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -28,16 +28,16 @@ function Form({ onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(name, number);
-    // if (name.trim() === '' || number.trim() === '') {
-    //   alert(`All fields must be completed.`);
-    // } else if (contacts.find(contact => contact.name === name)) {
-    //   alert(`${name} is already in contacts.`);
-    // } else if (contacts.find(contact => contact.number === number)) {
-    //   alert(`${number} is already in contacts.`);
-    // } else {
-    //   setContacts(prevContacts => [contact, ...prevContacts]);
-    // }
+
+    if (name.trim() === '' || number.trim() === '') {
+      alert(`All fields must be completed.`);
+    } else if (contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
+    } else if (contacts.find(contact => contact.number === number)) {
+      alert(`${number} is already in contacts.`);
+    } else {
+      onSubmit(name, number);
+    }
     reset();
   };
 
