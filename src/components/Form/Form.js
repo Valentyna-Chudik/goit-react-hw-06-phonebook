@@ -41,6 +41,8 @@ export default function Form() {
       alert(`${name} is already in contacts.`);
     } else if (contacts.find(contact => contact.number === number)) {
       alert(`${number} is already in contacts.`);
+    } else if (Number.isNaN(+number)) {
+      alert('Phone number should consist only of digits.');
     } else {
       onSubmit(name, number);
     }
