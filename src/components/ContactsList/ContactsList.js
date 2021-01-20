@@ -7,9 +7,6 @@ import { getVisibleContacts } from '../../redux/contacts/contacts-selectors';
 import styles from './ContactsList.module.css';
 
 export default function ContactsList() {
-  // const contacts = useSelector(state =>
-  //   getVisibleContacts(state.contacts.items, state.contacts.filter),
-  // );
   const contacts = useSelector(getVisibleContacts);
 
   const dispatch = useDispatch();
